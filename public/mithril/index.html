@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Mithril Blog</title>
+  <link rel="stylesheet" href="/styles/semantic.min.css" />
+  <link rel="stylesheet" href="/styles/site.css" />
+</head>
+<body>
+  <header class="main"></header>
+  <section class="main ui page grid"></section>
+  
+  <!-- Libraries -->
+  <!--<script src="/styles/semantic.js"></script>-->
+  <script src="/mithril/scripts/lib/mithril.js"></script>
+  <script src="/mithril/scripts/lib/polyfill.js"></script>
+  
+  <!-- Helpers -->
+  <script src="/mithril/scripts/helpers/request.js"></script>
+  <script src="/mithril/scripts/helpers/resource.js"></script>
+  <script src="/mithril/scripts/helpers/utils.js"></script>
+    
+  <!-- Resources -->
+  <script src="/mithril/scripts/resources/posts.js"></script>
+  <script src="/mithril/scripts/resources/users.js"></script>
+  
+  <!-- Modules -->  
+  <script src="/mithril/scripts/modules/error.module.js"></script>
+  <script src="/mithril/scripts/modules/login.user.module.js"></script>
+  <script src="/mithril/scripts/modules/register.user.module.js"></script>
+  <script src="/mithril/scripts/modules/main.navigation.module.js"></script>
+  <script src="/mithril/scripts/modules/post.form.module.js"></script>
+  <script src="/mithril/scripts/modules/post.list.module.js"></script>
+  
+  <!-- App Start -->  
+  <script src="/mithril/scripts/app.start.js"></script>
+</body>
+</html>
