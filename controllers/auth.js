@@ -25,11 +25,20 @@ exports.login = function (req, res, next) {
 
 exports.logout = function (req, res) {
   req.logout();
-  res.json({ message: 'User logged out' });
+  req.session.destroy(function (err) {
+    if (err) res.send(500, { message: 'An error occurred logging out.' });
+    res.clearCookie('connect.sid');
+    res.json({ message: 'User logged out' });
+  });
 };
 
-exports.isAuthenticated = function isAuthenticated(req, res, next) {
+exports.isAuthenticated = function (req, res, next) {
     if (!req.user) 
       res.send(401, { message: 'You are not authorized to perform that action.' });
     return next();
+};
+
+exports.isLoggedIn = function (req, res) {
+  console.log(req.user);
+  res.json((typeof req.user !== 'undefined'));
 };

@@ -2,14 +2,14 @@ var Post = require('../models/Post');
 
 exports.getAll = function (req, res) {
   Post.find(function (err, posts) {
-    if (err) res.send(err);
+    if (err) res.send(500, { message: err });
     res.json(posts);
   });
 };
 
 exports.getOne = function (req, res) {
   Post.findById(req.params.post_id, function (err, post) {
-    if (err) res.send(err);
+    if (err) res.send(500, { message: err });
     res.json(post);
   });
 };
@@ -23,7 +23,7 @@ exports.post = function (req, res) {
   post.ownerId = req.user._id;
 
   post.save(function (err) {
-    if (err) res.send(err);
+    if (err) res.send(500, { message: err });
     res.json({ message: 'Post added successfully.', data: post });
   });
 };
@@ -31,7 +31,6 @@ exports.post = function (req, res) {
 exports.put = function (req, res) {
   Post.update(
     { 
-      ownerId: req.user._id, 
       _id: req.params.post_id 
     }, 
     { 
@@ -40,15 +39,15 @@ exports.put = function (req, res) {
       date: req.body.date
     }, 
     function(err, num, raw) {
-      if (err) res.send(err);
+      if (err) res.send(500, { message: err });
       res.json({ message: num + ' updated' });
     }
   );
 };
 
 exports.remove = function (req, res) {
-  Post.remove({ ownerId: req.user._id, _id: req.params.post_id }, function(err) {
-    if (err) res.send(err);
+  Post.remove({ _id: req.params.post_id }, function(err) {
+    if (err) res.send(500, { message: err });
     res.json({ message: 'Post removed successfully.' });
   });
 };

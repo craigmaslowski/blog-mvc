@@ -1,6 +1,7 @@
+/* global errorComponent */
 /* global mixinLayout */
-/* global layoutModule */
-/* global mainNavigationModule */
+/* global layoutComponent */
+/* global mainNavigationComponent */
 /* global m */
 /* global posts */
 
@@ -10,7 +11,7 @@ var postFormController = function () {
 
   // viewstate setup
   ctrl.post = m.prop({});
-  ctrl.errorCtrl = new errorModule.controller();
+  ctrl.errorCtrl = new errorComponent.controller();
   
   // load the post if we're editing or create a new post if we're adding
   if (id)
@@ -59,10 +60,10 @@ var postFormView = function (ctrl) {
   }
 
   // return the form
-  return m('.column', [ m('form.ui.form.post-form', [ errorModule.view(ctrl.errorCtrl), form ])]);
+  return m('.column', [ m('form.ui.form.post-form', [ errorComponent.view(ctrl.errorCtrl), form ])]);
 };
 
-var postFormModule = {
+var postFormComponent = {
   controller: postFormController,
   view: postFormView
 };

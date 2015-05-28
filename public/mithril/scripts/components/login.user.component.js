@@ -1,14 +1,18 @@
+/* global Observable */
 /* global m */
-/* global errorModule */
+/* global errorComponent */
 /* global users */
 
 var loginUserController = function () {
 	var ctrl = this;
   ctrl.user = m.prop(new users.Model());
-  ctrl.errorCtrl = new errorModule.controller();
+  ctrl.errorCtrl = new errorComponent.controller();
   
   ctrl.login = function () {
-    users.login(ctrl.user).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
+    users.login(ctrl.user).then(function () {
+      Observable.trigger(events.login, {authenticated: true});
+      m.route('/'); 
+    }, ctrl.errorCtrl.error);
   };
 };
 
@@ -32,10 +36,10 @@ var loginUserView = function (ctrl) {
   ];
   
   // return the form
-  return m('.ui.two.column.centered.grid', [ m('form.ui.form.post-form.column', [ errorModule.view(ctrl.errorCtrl), form ])]);
+  return m('.ui.two.column.centered.grid', [ m('form.ui.form.post-form.column', [ errorComponent.view(ctrl.errorCtrl), form ])]);
 };
 
-var loginUserModule = {
+var loginUserComponent = {
 	controller: loginUserController,
 	view: loginUserView
 };

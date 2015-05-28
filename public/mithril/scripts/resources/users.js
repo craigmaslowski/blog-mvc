@@ -14,16 +14,21 @@ var logoutUser = function (user) {
 	return request({ method: 'GET', url: '/api/logout' });
 };
 
+var loggedIn = function (user) {
+	return request({ method: 'GET', url: '/api/loggedin' });
+};
+
 var UserModel = function (data) {
 	this.username = m.prop('');	
 	this.password = m.prop('');	
-	this.confirmPassword = m.prop('');	
+	this.confirmPassword = m.prop('');
 	this.toJSON = toJSON;
 };
 
 var users = {
 	register: registerUser,
 	login: loginUser,
-	logout: logoutUser, 
+	logout: logoutUser,
+	loggedIn: loggedIn,
 	Model: UserModel	
 };

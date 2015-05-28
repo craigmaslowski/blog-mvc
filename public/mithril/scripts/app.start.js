@@ -1,15 +1,15 @@
-/* global mainNavModule */
-/* global postListModule */
-/* global postFormModule */
+/* global mainNavComponent */
+/* global postListComponent */
+/* global postFormComponent */
 
-m.mount(document.querySelector('header.main'), mainNavigationModule);
+m.mount(document.querySelector('header.main'), mainNavigationComponent);
 
 m.route.mode = 'pathname';
 m.route(document.querySelector('section.main'), '/', {
-    '/': postListModule,
-    '/register': registerUserModule,    
-    '/login': loginUserModule,    
-    '/add': postFormModule,
-    '/edit/:id': postFormModule
+    '/': postListComponent,
+    '/register': registerUserComponent,    
+    '/login': loginUserComponent,    
+    '/add': postFormComponent,
+    '/edit/:id': postFormComponent
 });
 

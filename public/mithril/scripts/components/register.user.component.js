@@ -1,11 +1,11 @@
 /* global m */
-/* global errorModule */
+/* global errorComponent */
 /* global users */
 
 var registerUserController = function () {
 	var ctrl = this;
   ctrl.user = m.prop(new users.Model());
-  ctrl.errorCtrl = new errorModule.controller();
+  ctrl.errorCtrl = new errorComponent.controller();
   
   ctrl.register = function () {
     if (ctrl.user().password() !== ctrl.user().confirmPassword()) {
@@ -41,10 +41,10 @@ var registerUserView = function (ctrl) {
   ];
   
   // return the form
-  return m('.ui.two.column.centered.grid', [ m('form.ui.form.post-form.column', [ errorModule.view(ctrl.errorCtrl), form ])]);
+  return m('.ui.two.column.centered.grid', [ m('form.ui.form.post-form.column', [ errorComponent.view(ctrl.errorCtrl), form ])]);
 };
 
-var registerUserModule = {
+var registerUserComponent = {
 	controller: registerUserController,
 	view: registerUserView
 };

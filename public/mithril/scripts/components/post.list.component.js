@@ -1,7 +1,7 @@
-/* global mainNavigationModule */
+/* global mainNavigationComponent */
 /* global mixinLayout */
-/* global layoutModule */
-/* global errorModule */
+/* global layoutComponent */
+/* global errorComponent */
 /* global formatDate */
 /* global m */
 /* global posts */
@@ -9,7 +9,7 @@
 var postListController = function () {
   var ctrl = this;
   ctrl.posts = m.prop([]);
-  ctrl.errorCtrl = new errorModule.controller();
+  ctrl.errorCtrl = new errorComponent.controller();
   posts.load().then(ctrl.posts, function () { ctrl.errorCtrl.error('An error occurred loading posts.'); });
 };
 
@@ -17,7 +17,7 @@ var postListView = function (ctrl) {
   var posts = ctrl.posts();
   
   return m('.posts.ui.column.list', [
-    errorModule.view(ctrl.errorCtrl), 
+    errorComponent.view(ctrl.errorCtrl), 
     posts.map(function (post, index) {
       return m('article.post.item', [ 
         m('.content', [
@@ -31,7 +31,7 @@ var postListView = function (ctrl) {
   ]);
 };
 
-var postListModule = {
+var postListComponent = {
   controller: postListController,
   view: postListView
 };

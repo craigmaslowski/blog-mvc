@@ -18,7 +18,7 @@ var errorView = function (ctrl) {
 	}
 };
 
-var errorModule = { 
+var errorComponent = { 
 	controller: errorController,
 	view: errorView
 };
