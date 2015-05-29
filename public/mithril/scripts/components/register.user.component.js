@@ -2,22 +2,25 @@
 /* global errorComponent */
 /* global users */
 
-var registerUserController = function () {
+var registerUserController = function (pageState) {
 	var ctrl = this;
-  ctrl.user = m.prop(new users.Model());
+  
+  ctrl.pageState = pageState;
+  
+  ctrl.pageState().user = m.prop(new users.Model());
   ctrl.errorCtrl = new errorComponent.controller();
   
   ctrl.register = function () {
-    if (ctrl.user().password() !== ctrl.user().confirmPassword()) {
+    if (ctrl.pageState().user().password() !== ctrl.pageState().user().confirmPassword()) {
       return; ctrl.errorCtrl.error('Passwords do not match.');
     }
     
-    users.register(ctrl.user).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
+    users.register(ctrl.pageState().user).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
   };
 };
 
 var registerUserView = function (ctrl) {
-  var user = ctrl.user();
+  var user = ctrl.pageState().user();
   
 	// build the form
   var form = [

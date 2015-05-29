@@ -3,21 +3,24 @@
 /* global errorComponent */
 /* global users */
 
-var loginUserController = function () {
+var loginUserController = function (pageState) {
 	var ctrl = this;
-  ctrl.user = m.prop(new users.Model());
+  
+  ctrl.pageState = pageState;
+  
+  ctrl.pageState().user = m.prop(new users.Model());
   ctrl.errorCtrl = new errorComponent.controller();
   
   ctrl.login = function () {
-    users.login(ctrl.user).then(function () {
-      Observable.trigger(events.login, {authenticated: true});
+    users.login(ctrl.pageState().user).then(function () {
+      ctrl.pageState().authenticated(true);
       m.route('/'); 
     }, ctrl.errorCtrl.error);
   };
 };
 
 var loginUserView = function (ctrl) {
-  var user = ctrl.user();
+  var user = ctrl.pageState().user();
   
 	// build the form
   var form = [

@@ -5,19 +5,23 @@
 /* global m */
 /* global posts */
 
-var postFormController = function () {
+var postFormController = function (pageState) {
   var ctrl = this,
       id = m.route.param('id');
 
-  // viewstate setup
-  ctrl.post = m.prop({});
+  ctrl.pageState = pageState;
+  
+  if (!ctrl.pageState().authenticated()) 
+    m.route('/restrictedAccess'); 
+  
+  ctrl.pageState().post = m.prop({});
   ctrl.errorCtrl = new errorComponent.controller();
   
   // load the post if we're editing or create a new post if we're adding
   if (id)
-    posts.load(id).then(ctrl.post, ctrl.errorCtrl.error);
+    posts.load(id).then(ctrl.pageState().post, ctrl.errorCtrl.error);
   else 
-    ctrl.post(new posts.Model());
+    ctrl.pageState().post(new posts.Model());
 
   // clear the error
   ctrl.clearError = function () {
@@ -26,17 +30,17 @@ var postFormController = function () {
   
   // save the post
   ctrl.save = function () {
-    posts.save(ctrl.post).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
+    posts.save(ctrl.pageState().post).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
   };
 
   // remove the post
   ctrl.remove = function () {
-    posts.remove(ctrl.post().id()).then(function () { m.route('/'); }, ctrl.errorCtrl.error);;
+    posts.remove(ctrl.pageState().post().id()).then(function () { m.route('/'); }, ctrl.errorCtrl.error);;
   };
 };
 
 var postFormView = function (ctrl) {
-  var post = ctrl.post();
+  var post = ctrl.pageState().post();
 
   // build the form
   var form = [

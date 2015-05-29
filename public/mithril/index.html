@@ -5,17 +5,21 @@
   <link rel="stylesheet" href="/styles/site.css" />
 </head>
 <body>
-  <header class="main"></header>
-  <section class="main ui page grid"></section>
+<!--  <header class="main"></header>
+  <section class="main ui page grid"></section>-->
+  
+  <div id="app"></div>
   
   <!-- Libraries -->
   <!--<script src="/styles/semantic.js"></script>-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
   <script src="/mithril/scripts/lib/mithril.js"></script>
   <script src="/mithril/scripts/lib/polyfill.js"></script>
   
   <!-- Helpers -->
   <script src="/mithril/scripts/helpers/events.js"></script>
   <script src="/mithril/scripts/helpers/observable.js"></script>
+  <script src="/mithril/scripts/helpers/page.js"></script>    
   <script src="/mithril/scripts/helpers/request.js"></script>
   <script src="/mithril/scripts/helpers/resource.js"></script>
   <script src="/mithril/scripts/helpers/utils.js"></script>
@@ -27,10 +31,11 @@
   <!-- components -->  
   <script src="/mithril/scripts/components/error.component.js"></script>
   <script src="/mithril/scripts/components/login.user.component.js"></script>
-  <script src="/mithril/scripts/components/register.user.component.js"></script>
   <script src="/mithril/scripts/components/main.navigation.component.js"></script>
   <script src="/mithril/scripts/components/post.form.component.js"></script>
   <script src="/mithril/scripts/components/post.list.component.js"></script>
+  <script src="/mithril/scripts/components/register.user.component.js"></script>
+  <script src="/mithril/scripts/components/restricted.access.component.js"></script>
   
   <!-- App Start -->  
   <script src="/mithril/scripts/app.start.js"></script>
