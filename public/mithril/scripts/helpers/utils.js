@@ -22,3 +22,7 @@ function mixinLayout (layout, navigation, content) {
     return layout(navigation(), content());
   };
 };
+
+function ensureRestrictedAccess (pageState) {
+  if (!pageState().authenticated) m.route
+};
