@@ -10,7 +10,7 @@ Where this project differs is that the use case is slightly more complex, includ
 ## Client App Requirements
 
 ### Required Pages
-* Front Page Listing All Blog Posts
+* Front Page
 * Post Detail Page
 * Add Post
 * Edit Post
@@ -19,22 +19,24 @@ Where this project differs is that the use case is slightly more complex, includ
 
 ### Main Navigation Links
 * Home link visible to all users
-* Add Post visible to logged in authors
-* Add Author visible to logged in authors
-* Logout visible to logged in authors and redirect to home page on success 
+* Add Post link visible to logged in authors
+* Add Author link visible to logged in authors
+* Logout link visible to logged in authors and redirect to home page on success 
 
 ### Front Page
+* List of all blog posts made
 * Each post should have a clickable title that goes to post detail page
+* Post's body should be converted from markdown to html
 * Logged in Authors should have link to Edit Post
-* Each post's body should convert the data from markdown to html
 
 ### Post Detail Page
-* Post's body should convert the data from markdown to html
+* Post's body should be converted from markdown to html
 * Logged in Authors should have link to Edit Post
 * Logged in Authors should have link to Remove Post
 
 ### Add Post Page
 * Access to this page should be restricted to logged in users
+* A hideable markdown preview should show the formatted version of the post   
 * Collect Title and Body
 * Redirect to home page on success
 * Show error(s) on failure
@@ -42,6 +44,7 @@ Where this project differs is that the use case is slightly more complex, includ
 
 ### Edit Post Page
 * Access to this page should be restricted to logged in users
+* A hideable markdown preview should show the formatted version of the post
 * Collect Title and Body
 * Logged in Authors should have link to Remove post
 * Redirect to home page on success
