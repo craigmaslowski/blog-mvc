@@ -1,2 +1,23 @@
 header.main { margin-bottom: 1rem; }
-.posts .post:last-child .ui.divider { display: none; }
+
+.ui.list .list > .item .header, 
+.ui.list > .item .header, 
+.ui.list .item a { 
+	color: #009FDA !important; 
+}
+
+.posts .post .body,
+.posts .post .meta,
+.posts .post .actions,
+.post-detail .body,
+.post-detail .meta,
+.post-detail .actions {
+	margin-top: 1rem;
+}
+
+.post-detail .actions a {
+	margin-right: 1rem;
+}
+.posts .post:last-child .ui.divider { 
+	display: none; 
+}

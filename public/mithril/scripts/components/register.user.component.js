@@ -6,6 +6,9 @@ var registerUserController = function (pageState) {
 	var ctrl = this;
   
   ctrl.pageState = pageState;
+
+  if (!ctrl.pageState().authenticated()) 
+    m.route('/restrictedAccess'); 
   
   ctrl.pageState().user = m.prop(new users.Model());
   ctrl.errorCtrl = new errorComponent.controller();
@@ -29,6 +32,16 @@ var registerUserView = function (ctrl) {
       m('label', 'Username'),
       m('input[type=text][placeholder=Username]', 
         { oninput: m.withAttr('value', user.username) })  
+    ]),
+    m('.field', [
+      m('label', 'First Name'),
+      m('input[type=text][placeholder="First Name"]', 
+        { oninput: m.withAttr('value', user.firstName) })  
+    ]),
+    m('.field', [
+      m('label', 'Last Name'),
+      m('input[type=text][placeholder="Last Name"]', 
+        { oninput: m.withAttr('value', user.lastName) })  
     ]),
     m('.field', [
       m('label', 'Password'),

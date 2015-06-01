@@ -19,9 +19,11 @@ var loggedIn = function (user) {
 };
 
 var UserModel = function (data) {
-	this.username = m.prop('');	
-	this.password = m.prop('');	
+	this.username = m.prop('');
+	this.password = m.prop('');
 	this.confirmPassword = m.prop('');
+	this.firstName = m.prop('');
+	this.lastName = m.prop('');
 	this.toJSON = toJSON;
 };
 

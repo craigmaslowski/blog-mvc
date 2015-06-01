@@ -11,7 +11,9 @@ var postListController = function (pageState) {
   ctrl.pageState = pageState;
   ctrl.pageState().posts = m.prop([]);
   ctrl.errorCtrl = new errorComponent.controller();
-  posts.load().then(ctrl.pageState().posts, function () { ctrl.errorCtrl.error('An error occurred loading posts.'); });
+  posts.load().then(ctrl.pageState().posts, function () { 
+    ctrl.errorCtrl.error('An error occurred loading posts.'); 
+  });
 };
 
 var postListView = function (ctrl) {
@@ -22,14 +24,17 @@ var postListView = function (ctrl) {
     posts.map(function (post, index) {
       var postElements = [
           m('a[href=/post/' + post.id() + ']', {config: m.route}, [ m('h2.title.header', post.title()) ]),
-          m('div.body', post.body()),
-          m('div.date', 'Posted on ' + formatDate(post.date())),
-          m('.ui.divider')
+          m('.body', post.body()),
+          m('.meta', 'Posted on ' + formatDate(post.date()))
       ];
       
       if (ctrl.pageState().authenticated()) {
-        postElements.push(m('a[href=/edit/' + post.id() + ']', {config: m.route}, 'Edit Post'));
+        postElements.push(m('.actions', [
+          m('a[href=/edit/' + post.id() + ']', {config: m.route}, 'Edit Post')
+        ]));
       }
+      
+      postElements.push(m('.ui.divider'));
       
       return m('article.post.item', [ 
         m('.content', postElements)

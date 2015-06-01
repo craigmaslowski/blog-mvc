@@ -7,16 +7,27 @@ var postDetailController = function (pageState) {
 	ctrl.errorCtrl = new errorComponent.controller();
 	
 	posts.load(id).then(ctrl.pageState().post, ctrl.errorCtrl.error);
+	
+	ctrl.remove = removePost(ctrl);
 };
 
 var postDetailView = function (ctrl) {
 	var post = ctrl.pageState().post();
 	
-	return m('article.post-detail.column', [
+	var postElements = [
 		m('h1.title', post.title()),
 		m('.body', post.body()),
 		m('.meta', 'Posted on ' + formatDate(post.date()))
-	]);
+	];
+	
+	if (ctrl.pageState().authenticated()) {
+    postElements.push(m('.actions', [
+      m('a[href=/edit/' + post.id() + ']', {config: m.route}, 'Edit Post'),
+			m('a[href=#]', {onclick: ctrl.remove}, 'Remove Post')
+    ]));
+  }
+	
+	return m('article.post-detail.column', [ postElements ]);
 };
 
 var postDetailComponent = {

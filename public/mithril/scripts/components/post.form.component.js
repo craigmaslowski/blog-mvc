@@ -34,9 +34,7 @@ var postFormController = function (pageState) {
   };
 
   // remove the post
-  ctrl.remove = function () {
-    posts.remove(ctrl.pageState().post().id()).then(function () { m.route('/'); }, ctrl.errorCtrl.error);;
-  };
+  ctrl.remove = removePost(ctrl);
 };
 
 var postFormView = function (ctrl) {

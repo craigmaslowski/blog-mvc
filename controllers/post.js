@@ -1,15 +1,15 @@
 var Post = require('../models/Post');
 
 exports.getAll = function (req, res) {
-  Post.find(function (err, posts) {
-    if (err) res.send(500, { message: err });
+  Post.find().sort('-date').exec(function (err, posts) {
+    if (err) res.status(500).send({ message: err });
     res.json(posts);
   });
 };
 
 exports.getOne = function (req, res) {
   Post.findById(req.params.post_id, function (err, post) {
-    if (err) res.send(500, { message: err });
+    if (err) res.status(500).send({ message: err });
     res.json(post);
   });
 };
@@ -23,7 +23,7 @@ exports.post = function (req, res) {
   post.ownerId = req.user._id;
 
   post.save(function (err) {
-    if (err) res.send(500, { message: err });
+    if (err) res.status(500).send({ message: err });
     res.json({ message: 'Post added successfully.', data: post });
   });
 };
@@ -39,7 +39,7 @@ exports.put = function (req, res) {
       date: req.body.date
     }, 
     function(err, num, raw) {
-      if (err) res.send(500, { message: err });
+      if (err) res.status(500).send( { message: err });
       res.json({ message: num + ' updated' });
     }
   );
@@ -47,7 +47,7 @@ exports.put = function (req, res) {
 
 exports.remove = function (req, res) {
   Post.remove({ _id: req.params.post_id }, function(err) {
-    if (err) res.send(500, { message: err });
+    if (err) res.status(500).send({ message: err });
     res.json({ message: 'Post removed successfully.' });
   });
 };
