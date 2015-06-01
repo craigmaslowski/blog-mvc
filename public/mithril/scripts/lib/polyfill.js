@@ -26,7 +26,7 @@ if (!Array.prototype.findIndex) {
 if (!Array.prototype.without) {
   Array.prototype.without = function (predicate) {
     if (this == null) {
-      throw new TypeError('Array.prototype.findIndex called on null or undefined');
+      throw new TypeError('Array.prototype.without called on null or undefined');
     }
 
     if (typeof predicate !== 'function') {
