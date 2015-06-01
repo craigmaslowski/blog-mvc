@@ -27,7 +27,7 @@ var registerUserView = function (ctrl) {
   
 	// build the form
   var form = [
-    m('h4.ui.dividing.header', 'Register'),
+    m('h4.ui.dividing.header', 'Add Author'),
     m('.field', [
       m('label', 'Username'),
       m('input[type=text][placeholder=Username]', 
