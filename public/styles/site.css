@@ -1,1 +1,2 @@
 header.main { margin-bottom: 1rem; }
+.posts .post:last-child .ui.divider { display: none; }

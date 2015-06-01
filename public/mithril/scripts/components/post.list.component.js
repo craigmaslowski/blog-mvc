@@ -21,9 +21,10 @@ var postListView = function (ctrl) {
     errorComponent.view(ctrl.errorCtrl), 
     posts.map(function (post, index) {
       var postElements = [
-          m('h2.title.header', post.title()),
+          m('a[href=/post/' + post.id() + ']', {config: m.route}, [ m('h2.title.header', post.title()) ]),
           m('div.body', post.body()),
-          m('div.date', 'Posted on ' + formatDate(post.date()))
+          m('div.date', 'Posted on ' + formatDate(post.date())),
+          m('.ui.divider')
       ];
       
       if (ctrl.pageState().authenticated()) {

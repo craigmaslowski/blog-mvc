@@ -1,3 +1,6 @@
+/* global Page */
+/* global restrictedAccessComponent */
+/* global loginUserComponent */
 /* global restrictedAccess */
 /* global registerUserComponent */
 /* global mainNavigationComponent */
@@ -14,6 +17,7 @@ m.route(document.querySelector('#app'), '/', {
     '/login': new Page(mainNavigationComponent, loginUserComponent),
     '/add': new Page(mainNavigationComponent, postFormComponent),
     '/edit/:id': new Page(mainNavigationComponent, postFormComponent),
-    '/restrictedAccess': new Page(mainNavigationComponent, restrictedAccessComponent)
+    '/restrictedAccess': new Page(mainNavigationComponent, restrictedAccessComponent),
+    '/post/:id': new Page(mainNavigationComponent, postDetailComponent)
 });
 
