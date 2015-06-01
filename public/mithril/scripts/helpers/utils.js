@@ -16,13 +16,3 @@ function formatDate (date) {
   date = new Date(typeof date == 'function' ? date() : date);
   return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getYear();
 }
-
-function mixinLayout (layout, navigation, content) {
-  return function () {
-    return layout(navigation(), content());
-  };
-};
-
-function ensureRestrictedAccess (pageState) {
-  if (!pageState().authenticated) m.route
-};

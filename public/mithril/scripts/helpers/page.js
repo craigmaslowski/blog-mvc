@@ -29,9 +29,4 @@ var Page = function (navigation, content) {
 	  	m('section.main.ui.page.grid', [ content.view(ctrl.contentCtrl) ])
 		];
 	};
-	
-	function renderComponents (ctrl) {
-		ctrl.navigationCtrl = new navigation.controller(ctrl.pageState);
-		ctrl.contentCtrl = new content.controller(ctrl.pageState);
-	}
 };
