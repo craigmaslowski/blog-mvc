@@ -1,3 +1,4 @@
+/* global marked */
 var postDetailController = function (pageState) {
 	var ctrl = this,
       id = m.route.param('id');
@@ -16,7 +17,7 @@ var postDetailView = function (ctrl) {
 	
 	var postElements = [
 		m('h1.title', post.title()),
-		m('.body', post.body()),
+		m('.body', m.trust(marked(post.body()))),
 		m('.meta', 'Posted on ' + formatDate(post.date()))
 	];
 	

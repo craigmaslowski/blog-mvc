@@ -24,7 +24,7 @@ var postListView = function (ctrl) {
     posts.map(function (post, index) {
       var postElements = [
           m('a[href=/post/' + post.id() + ']', {config: m.route}, [ m('h2.title.header', post.title()) ]),
-          m('.body', post.body()),
+          m('.body', m.trust(marked(post.body()))),
           m('.meta', 'Posted on ' + formatDate(post.date()))
       ];
       
