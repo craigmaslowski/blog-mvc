@@ -61,7 +61,7 @@ Where this project differs is that the use case is slightly more complex, includ
 * Show error(s) on failure
 * Should validate all input
 
-## Login Page
+### Login Page
 * Collect Username and Password
 * Redirect to home page on success
 * Show error(s) on failure
