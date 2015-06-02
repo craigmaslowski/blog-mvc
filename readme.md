@@ -36,7 +36,8 @@ Where this project differs is that the use case is slightly more complex, includ
 
 ### Add Post Page
 * Access to this page should be restricted to logged in users
-* A hideable markdown preview should show the formatted version of the post   
+* A hideable markdown preview should show the formatted version of the post
+* Markdown preview should be hidden by default   
 * Collect Title and Body
 * Redirect to home page on success
 * Show error(s) on failure
@@ -45,6 +46,7 @@ Where this project differs is that the use case is slightly more complex, includ
 ### Edit Post Page
 * Access to this page should be restricted to logged in users
 * A hideable markdown preview should show the formatted version of the post
+* Markdown preview should be hidden by default
 * Collect Title and Body
 * Logged in Authors should have link to Remove post
 * Redirect to home page on success

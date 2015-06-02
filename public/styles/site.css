@@ -11,8 +11,13 @@ header.main { margin-bottom: 1rem; }
 .posts .post .actions,
 .post-detail .body,
 .post-detail .meta,
-.post-detail .actions {
+.post-detail .actions,
+.post-form .actions {
 	margin-top: 1rem;
+}
+
+.post-form .preview {
+	margin-top: 0;
 }
 
 .post-detail .actions a {
