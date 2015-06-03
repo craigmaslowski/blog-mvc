@@ -9,20 +9,35 @@ header.main { margin-bottom: 1rem; }
 .posts .post .body,
 .posts .post .meta,
 .posts .post .actions,
-.post-detail .body,
-.post-detail .meta,
-.post-detail .actions,
-.post-form .actions {
+.post.detail .body,
+.post.detail .meta,
+.post.detail .actions,
+.post.form .actions {
 	margin-top: 1rem;
 }
 
-.post-form .preview {
+.posts .post:last-child .ui.divider { 
+	display: none; 
+}
+
+.post.form .preview.segment {
 	margin-top: 0;
 }
 
-.post-detail .actions a {
-	margin-right: 1rem;
+.post.form .ui.body.field.grid {
+	margin-bottom: 1rem;
 }
-.posts .post:last-child .ui.divider { 
-	display: none; 
+.post.form .ui.body.grid .eight.wide.column {
+	padding-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;	
+}
+
+.post.form .ui.body.field.grid .eight.wide.column:nth-child(n+2) {
+	padding-left: 1rem;
+	padding-right: 0;	
+}
+
+.post.detail .actions a {
+	margin-right: 1rem;
 }

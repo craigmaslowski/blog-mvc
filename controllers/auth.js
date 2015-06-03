@@ -10,10 +10,7 @@ exports.register = function (req, res) {
     req.body.password, 
     function (err, account) {
       if (err) return res.status(500).send(err);
-  
-      passport.authenticate('local')(req, res, function () {
-        res.json({ message: 'User registered successfully'});
-      });
+      res.json({ message: 'User registered successfully'});
   });
 };
 

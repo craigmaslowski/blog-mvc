@@ -23,14 +23,14 @@ var postListView = function (ctrl) {
     errorComponent.view(ctrl.errorCtrl), 
     posts.map(function (post, index) {
       var postElements = [
-          m('a[href=/post/' + post.id() + ']', {config: m.route}, [ m('h2.title.header', post.title()) ]),
+          m('a[href=/post/' + post._id() + ']', {config: m.route}, [ m('h2.title.header', post.title()) ]),
           m('.body', m.trust(marked(post.body()))),
           m('.meta', 'Posted on ' + formatDate(post.date()))
       ];
       
       if (ctrl.pageState().authenticated()) {
         postElements.push(m('.actions', [
-          m('a[href=/edit/' + post.id() + ']', {config: m.route}, 'Edit Post')
+          m('a[href=/edit/' + post._id() + ']', {config: m.route}, 'Edit Post')
         ]));
       }
       

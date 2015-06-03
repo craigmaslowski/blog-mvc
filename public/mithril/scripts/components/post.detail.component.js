@@ -23,12 +23,12 @@ var postDetailView = function (ctrl) {
 	
 	if (ctrl.pageState().authenticated()) {
     postElements.push(m('.actions', [
-      m('a[href=/edit/' + post.id() + ']', {config: m.route}, 'Edit Post'),
+      m('a[href=/edit/' + post._id() + ']', {config: m.route}, 'Edit Post'),
 			m('a[href=#]', {onclick: ctrl.remove}, 'Remove Post')
     ]));
   }
 	
-	return m('article.post-detail.column', [ postElements ]);
+	return m('article.post.detail.column', [ postElements ]);
 };
 
 var postDetailComponent = {
