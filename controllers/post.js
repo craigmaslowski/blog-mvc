@@ -3,34 +3,31 @@ var Post = require('../models/Post'),
     User = require('../models/User');
 
 exports.getAll = function (req, res) {
-  Post.find().sort('-date').exec(function (err, posts) {
+  Post.find().sort('-date').populate('author', '-_id firstName lastName').exec(function (err, posts) {
     if (err) res.status(500).send({ message: err });
+    posts = posts.map(function (post) {
+      return post.toObject();
+    });
+    
+    posts.forEach(function () {});
     res.json(posts);
   });
 };
 
 exports.getOne = function (req, res) {
-  Post.findById(req.params.post_id, function (err, post) {
+  Post.findById(req.params.post_id).populate('author', '-_id firstName lastName').exec(function (err, post) {
     if (err) res.status(500).send({ message: err });
-
-    User.findById(post.authorId, function (err, user) {
-      if (err) res.status(500).send({ message: err });
-      
-      post = post.toObject();
-      var fullName = user.firstName + ' ' + user.lastName; 
-      post.author = fullName;
-      
-      if (req.query.include === 'comments') {
-        Comment.find({postId: req.params.post_id}).sort('date').exec(function (err, comments) {
-          if (err) res.status(500).send({ message: err });
-          
-          post.comments = comments || [];
-          res.json(post);
-        });
-      } else { 
-        res.json(post);
-      }  
-    });
+    
+    if (req.query.include === 'comments') {
+      Comment.find({ postId: req.params.post_id}, function (err, comments) {
+        if (err) res.status(500).send({ message: err });
+        post = post.toObject();
+        post.comments = comments;
+        res.json(post);      
+      });
+    } else {
+      res.json(post);
+    }
   });
 };
 
@@ -40,7 +37,7 @@ exports.post = function (req, res) {
   post.title = req.body.title;
   post.body = req.body.body;
   post.date = req.body.date;
-  post.authorId = req.user._id;
+  post.author = req.user._id;
 
   post.save(function (err) {
     if (err) res.status(500).send({ message: err });

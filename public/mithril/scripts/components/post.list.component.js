@@ -28,7 +28,12 @@ var postListView = function (ctrl) {
       var postElements = [
           m('a[href=/post/' + post._id() + ']', {config: m.route}, [ m('h2.title.header', post.title()) ]),
           m('.body', m.trust(marked(post.body()))),
-          m('.meta', 'Posted on ' + formatDate(post.date()))
+          m('.metadata', [
+      			m('span', 'Posted by '),
+      			m('span.author', post.author().firstName + ' ' + post.author().lastName),
+      			m('span', ' on '),
+      			m('span.date', moment(post.date()).format('MMMM Do YYYY, h:mm a'))
+      		])
       ];
       
       if (ctrl.pageState.authenticated()) {

@@ -11,7 +11,7 @@ header.main { margin-bottom: 1rem; }
 }
 
 .posts .post .body,
-.posts .post .meta,
+.posts .post .metadata,
 .posts .post .actions,
 .post.detail .body,
 .post.detail .metadata,
@@ -47,6 +47,7 @@ header.main { margin-bottom: 1rem; }
 	margin-right: 1rem;
 }
 
+.posts .post .metadata,
 .post.detail .metadata {
 	color: rgba(0, 0, 0, 0.4);
 }
