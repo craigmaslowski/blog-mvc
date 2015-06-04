@@ -1,17 +1,25 @@
 var passport = require('passport'),
-		User = require('../models/user');
+		User = require('../models/user'),
+    Post = require('../models/post');
 
 exports.getAllUsers = function (req, res) {
   User.find(function (err, users) {
-    if (err) res.status(500).send({ message: err });
+    if (err) return res.status(500).send({ message: err });
     res.json(users);
   });
 };
 
 exports.removeUser = function (req, res) {
-  User.remove({ _id: req.params.user_id }, function (err) {
-    if (err) res.status(500).send({ message: err });
-    res.json({ message: 'User removed successfully.' });
+  if (req.user._id == req.params.user_id)
+    return res.status(500).send({ message: 'You can\'t remove your own account.' });
+  
+  Post.update({author: req.params.user_id}, { author: req.user._id }, function (err) {
+    if (err) return res.status(500).send({ message: err });
+    
+    User.remove({ _id: req.params.user_id }, function (err) {
+      if (err) return res.status(500).send({ message: err });
+      res.json({ message: 'User removed successfully.' });
+    });  
   });
 };
     
@@ -22,16 +30,22 @@ exports.register = function (req, res) {
       lastName: req.body.lastName 
     }), 
     req.body.password, 
-    function (err, account) {
+    function (err, user) {
       if (err) return res.status(500).send(err);
-      res.json({ message: 'User registered successfully'});
+      
+      res.json({ message: 'User registered successfully', user: { 
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      }});
   });
 };
 
 exports.login = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
-    if (err) return next(err);
-    if (!user) return res.status(500).send({ message: "User not found" });
+    if (!user) return res.status(500).send({ message: 'Username or password are incorrect' });
+    
+    if (!user) return res.status(500).send({ message: 'User not found' });
 
     req.login(user, function(err) {
       if (err) return next(err);
@@ -43,7 +57,7 @@ exports.login = function (req, res, next) {
 exports.logout = function (req, res) {
   req.logout();
   req.session.destroy(function (err) {
-    if (err) res.status(500).send({ message: 'An error occurred logging out.' });
+    if (err) return res.status(500).send({ message: 'An error occurred logging out.' });
     res.clearCookie('connect.sid');
     res.json({ message: 'User logged out' });
   });
@@ -51,8 +65,8 @@ exports.logout = function (req, res) {
 
 exports.isAuthenticated = function (req, res, next) {
     if (!req.user) 
-      res.status(401).send({ message: 'You are not authorized to perform that action.' });
-    return next();
+      return res.status(401).send({ message: 'You are not authorized to perform that action.' });
+    next();
 };
 
 exports.isLoggedIn = function (req, res) {

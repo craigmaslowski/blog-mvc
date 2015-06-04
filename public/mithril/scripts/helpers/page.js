@@ -10,7 +10,7 @@ var Page = function (navigation, content) {
 		ctrl.pageState = m.prop(pageState || new PageState());
 				
 		if (!ctrl.pageState().authenticated()) {
-			users.loggedIn()
+			Users.loggedIn()
 				.then(ctrl.pageState().authenticated)
 				.then(function () {
 					ctrl.navigationCtrl = new navigation.controller(ctrl.pageState);

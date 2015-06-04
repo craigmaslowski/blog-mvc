@@ -17,7 +17,7 @@ var postDetailController = function (pageState) {
 	
 	ctrl.commentFormController = new commentFormComponent.controller(pageState);
 	
-	posts.loadWithComments(id).then(function (data) {
+	Posts.loadWithComments(id).then(function (data) {
 		ctrl.pageState.post(data);
 		ctrl.pageState.post().comments(ctrl.pageState.post().comments().map(function (comment) {
 	    return new Comment(comment);

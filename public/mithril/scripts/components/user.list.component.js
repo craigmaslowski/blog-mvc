@@ -17,8 +17,8 @@ var userListController = function (pageState) {
   
   ctrl.removeUser = function (e) {
     if (confirm('This action cannot be undone. Are you sure?')) {
-      var data = $(e.srcElement).data();
-      users.remove(data.userId).then(function () {
+      var data = $(e.currentTarget).data();
+      Users.remove(data.userId).then(function () {
         // remove user from page data 
         ctrl.pageState.users(ctrl.pageState.users().without(function (user) {
           return user._id() == data.userId; 
@@ -27,7 +27,7 @@ var userListController = function (pageState) {
     }
   };
   
-  users.load().then(ctrl.pageState.users, function () { 
+  Users.load().then(ctrl.pageState.users, function () { 
     ctrl.errorCtrl.error('An error occurred loading users.'); 
   });
 };
@@ -35,8 +35,7 @@ var userListController = function (pageState) {
 var userListView = function (ctrl) {
   var users = ctrl.pageState.users();
   
-  return m('.authors.column', [
-    m('h1', 'Authors'),
+  return m('.authors', [
     errorComponent.view(ctrl.errorCtrl),
     m('table.ui.padded.table', [
       m('thead', [ 
@@ -52,7 +51,7 @@ var userListView = function (ctrl) {
             m('td.username', user.username()),
             m('td.fullName', user.firstName() + ' ' + user.lastName()),
             m('td.actions.right.aligned', [
-              m('.ui.compact.primary.button', {'data-user-id': user._id(), onclick: ctrl.removeUser}, 'Remove')
+              m('.ui.mini.primary.button', {'data-user-id': user._id(), onclick: ctrl.removeUser}, [ m('i.minus.icon') ], 'Remove')
             ])
           ]);
         })

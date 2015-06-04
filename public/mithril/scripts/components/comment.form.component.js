@@ -3,7 +3,7 @@ var commentFormController = function (pageState) {
 	var ctrl = this;
 	
 	ctrl.pageState = pageState();
-	ctrl.pageState.comment = m.prop(new comments.Model());
+	ctrl.pageState.comment = m.prop(new Comments.Model());
   ctrl.pageState.validationErrors = m.prop({});
 
 	ctrl.errorCtrl = new errorComponent.controller();
@@ -19,8 +19,9 @@ var commentFormController = function (pageState) {
     }
     
 		comment().postId(post._id());		
-    comments.save(comment).then(function () { 
+    Comments.save(comment).then(function (data) { 
       var comments = ctrl.pageState.post().comments();
+      comment()._id(data.comment._id);
       comments.push(comment()); 
       ctrl.pageState.post().comments(comments);
       ctrl.pageState.comment(new Comment());

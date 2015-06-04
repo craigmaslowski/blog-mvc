@@ -14,7 +14,7 @@ var postListController = function (pageState) {
   
   ctrl.errorCtrl = new errorComponent.controller();
   
-  posts.load().then(ctrl.pageState.posts, function () { 
+  Posts.load().then(ctrl.pageState.posts, function () { 
     ctrl.errorCtrl.error('An error occurred loading posts.'); 
   });
 };

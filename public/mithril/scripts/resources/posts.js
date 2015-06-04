@@ -1,11 +1,11 @@
 /* global Resource */
 
-var posts = new Resource({
+var Posts = new Resource({
   url: '/api/posts',
   Model: Post
 });
 
-posts.loadWithComments = function (id) {
+Posts.loadWithComments = function (id) {
   return request({
     method: 'GET', 
     url: this.url + '/' + id + '?include=comments', 

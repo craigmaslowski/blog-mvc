@@ -7,4 +7,13 @@ var CommentSchema = new mongoose.Schema({
 	postId: {type: 'ObjectId', ref: 'Post'}
 });
 
+var Comment;
+
+if (mongoose.models.Comment) {
+  Comment = mongoose.model('Comment');
+} else {
+  Comment = mongoose.model('Comment', CommentSchema);
+}
+
+
 module.exports = mongoose.model('Comment', CommentSchema);

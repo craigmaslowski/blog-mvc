@@ -1,3 +1,4 @@
+/* global initializePopup */
 /* global m */
 /* global errorComponent */
 /* global users */
@@ -10,7 +11,7 @@ var registerUserController = function (pageState) {
   if (!ctrl.pageState.authenticated()) 
     m.route('/restrictedAccess'); 
   
-  ctrl.pageState.user = m.prop(new users.Model());
+  ctrl.pageState.user = m.prop(new Users.Model());
   ctrl.pageState.validationErrors = m.prop({});
 
   ctrl.errorCtrl = new errorComponent.controller();
@@ -24,7 +25,18 @@ var registerUserController = function (pageState) {
       return;
     }
     
-    users.register(user).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
+    Users.register(user).then(function (data) { 
+      var users = ctrl.pageState.users();
+      user()._id(data.user._id);
+      users.push(user());
+      ctrl.pageState.users(users);
+      
+      ctrl.pageState.user(new Users.Model());
+      
+      if (ctrl.pageState.showRegisterForm) {
+        ctrl.pageState.showRegisterForm(false);
+      }
+    }, ctrl.errorCtrl.error);
   };
 };
 
@@ -32,12 +44,12 @@ var registerUserView = function (ctrl) {
   var user = ctrl.pageState.user(),
       validationErrors = ctrl.pageState.validationErrors();
   
-	// build the form
-  var form = [
+  return m('form.ui.register.form', [ 
+    errorComponent.view(ctrl.errorCtrl), 
     m('h4.ui.dividing.header', 'Add Author'),
     m('.username.field' + (validationErrors.username ? '.error' : ''), [
       m('label', 'Username'),
-      m('input[type=text][placeholder=Username]', { 
+      m('input[type=text][placeholder=Username][autofocus]', { 
         oninput: m.withAttr('value', user.username),
         config: initializePopup,      
         'data-popup-message': validationErrors.username 
@@ -85,11 +97,10 @@ var registerUserView = function (ctrl) {
           : 'Confirm the author\'s password here' 
       })
     ]),
-    m('button[type=button].ui.primary.button', { onclick: ctrl.register, href: '#' }, 'Register')
-  ];
-  
-  // return the form
-  return m('.ui.two.column.centered.grid', [ m('form.ui.form.post-form.column', [ errorComponent.view(ctrl.errorCtrl), form ])]);
+    m('.actions.field', [
+      m('button[type=button].ui.primary.small.button', { onclick: ctrl.register, href: '#' }, [ m('i.add.icon') ], 'Add')
+    ])
+  ]);
 };
 
 var registerUserComponent = {

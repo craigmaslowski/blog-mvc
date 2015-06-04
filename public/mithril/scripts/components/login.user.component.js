@@ -8,11 +8,11 @@ var loginUserController = function (pageState) {
   
   ctrl.pageState = pageState();
   
-  ctrl.pageState.user = m.prop(new users.Model());
+  ctrl.pageState.user = m.prop(new Users.Model());
   ctrl.errorCtrl = new errorComponent.controller();
   
   ctrl.login = function () {
-    users.login(ctrl.pageState.user).then(function () {
+    Users.login(ctrl.pageState.user).then(function () {
       ctrl.pageState.authenticated(true);
       m.route('/'); 
     }, ctrl.errorCtrl.error);

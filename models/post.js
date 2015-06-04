@@ -8,4 +8,12 @@ var PostSchema = new mongoose.Schema({
 	comments: [{ type: 'ObjectId', ref: 'Comment' }]
 });
 
-module.exports = mongoose.model('Post', PostSchema);
+var Post;
+
+if (mongoose.models.Post) {
+  Post = mongoose.model('Post');
+} else {
+  Post = mongoose.model('Post', PostSchema);
+}
+
+module.exports = Post;

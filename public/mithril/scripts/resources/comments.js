@@ -1,5 +1,5 @@
 var url = '/api/comments',
-	comments = {
+	Comments = {
 		save: function (model) {
 	    model = model().toJSON();
 	    

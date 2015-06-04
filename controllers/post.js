@@ -4,7 +4,8 @@ var Post = require('../models/Post'),
 
 exports.getAll = function (req, res) {
   Post.find().sort('-date').populate('author', '-_id firstName lastName').exec(function (err, posts) {
-    if (err) res.status(500).send({ message: err });
+    if (err) return res.status(500).send({ message: err });
+    
     posts = posts.map(function (post) {
       return post.toObject();
     });
@@ -16,11 +17,12 @@ exports.getAll = function (req, res) {
 
 exports.getOne = function (req, res) {
   Post.findById(req.params.post_id).populate('author', '-_id firstName lastName').exec(function (err, post) {
-    if (err) res.status(500).send({ message: err });
+    if (err) return res.status(500).send({ message: err });
     
     if (req.query.include === 'comments') {
       Comment.find({ postId: req.params.post_id}, function (err, comments) {
-        if (err) res.status(500).send({ message: err });
+        if (err) return res.status(500).send({ message: err });
+        
         post = post.toObject();
         post.comments = comments;
         res.json(post);      
@@ -40,7 +42,7 @@ exports.post = function (req, res) {
   post.author = req.user._id;
 
   post.save(function (err) {
-    if (err) res.status(500).send({ message: err });
+    if (err) return res.status(500).send({ message: err });
     res.json({ message: 'Post added successfully.', data: post });
   });
 };
@@ -56,15 +58,19 @@ exports.put = function (req, res) {
       date: req.body.date
     }, 
     function(err, num, raw) {
-      if (err) res.status(500).send( { message: err });
+      if (err) return res.status(500).send( { message: err });
       res.json({ message: num + ' updated' });
     }
   );
 };
 
 exports.remove = function (req, res) {
-  Post.remove({ _id: req.params.post_id }, function (err) {
-    if (err) res.status(500).send({ message: err });
-    res.json({ message: 'Post removed successfully.' });
+  Comment.remove({postId: req.params.post_id}, function (err) {
+    if (err) return res.status(500).send({ message: err });
+    
+    Post.remove({ _id: req.params.post_id }, function (err) {
+      if (err) return res.status(500).send({ message: err });
+      res.json({ message: 'Post removed successfully.' });
+    });  
   });
 };

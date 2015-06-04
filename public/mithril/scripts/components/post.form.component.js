@@ -24,11 +24,11 @@ var postFormController = function (pageState) {
   
   // load the post if we're editing or create a new post if we're adding
   if (id)
-    posts.load(id)
+    Posts.load(id)
       .then(ctrl.pageState.post, ctrl.errorCtrl.error)
       .then(function () { ctrl.pageState.markdownPreview(marked(ctrl.pageState.post().body())); });
   else 
-    ctrl.pageState.post(new posts.Model());
+    ctrl.pageState.post(new Posts.Model());
 
   // clear the error
   ctrl.clearError = function () {
@@ -45,7 +45,7 @@ var postFormController = function (pageState) {
       return;
     }
     
-    posts.save(post).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
+    Posts.save(post).then(function () { m.route('/'); }, ctrl.errorCtrl.error);
   };
 
   // remove the post

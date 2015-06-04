@@ -9,8 +9,8 @@ exports.post = function (req, res) {
   comment.postId = req.body.postId;
 
   comment.save(function (err) {
-    if (err) res.status(500).send({ message: err });
-    res.json({ message: 'Comment added successfully.', data: comment });
+    if (err) return res.status(500).send({ message: err });
+    res.json({ message: 'Comment added successfully.', comment: comment });
   });
 };
 
@@ -25,7 +25,7 @@ exports.put = function (req, res) {
       date: req.body.date
     }, 
     function(err, num, raw) {
-      if (err) res.status(500).send( { message: err });
+      if (err) return res.status(500).send( { message: err });
       res.json({ message: num + ' updated' });
     }
   );
@@ -33,7 +33,7 @@ exports.put = function (req, res) {
 
 exports.remove = function (req, res) {
   Comment.remove({ _id: req.params.comment_id }, function (err) {
-    if (err) res.status(500).send({ message: err });
+    if (err) return res.status(500).send({ message: err });
     res.json({ message: 'Comment removed successfully.' });
   });
 };
