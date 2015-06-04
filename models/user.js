@@ -20,4 +20,12 @@ var UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('User', UserSchema);
+var User;
+
+if (mongoose.models.User) {
+  User = mongoose.model('User');
+} else {
+  User = mongoose.model('User', UserSchema);
+}
+
+module.exports = User;

@@ -1,15 +1,15 @@
 /* global Model */
 
-var Post = new Model(
+var Comment = new Model(
   { 
     _id: '',
-    title: '',
+    author: '',
     body: '',
     date: new Date(),
-    comments: []
+    postId: ''
   }, 
   { 
-    title: { presence: {message: 'is required'} }, 
+    author: { presence: {message: 'is required'} }, 
     body: { presence: {message: 'is required'} }
   }
 );

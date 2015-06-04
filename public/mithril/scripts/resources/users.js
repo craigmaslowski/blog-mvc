@@ -18,10 +18,12 @@ var loggedIn = function (user) {
 	return request({ method: 'GET', url: '/api/loggedin' });
 };
 
-var users = {
-	register: registerUser,
-	login: loginUser,
-	logout: logoutUser,
-	loggedIn: loggedIn,
-	Model: User	
-};
+var users = new Resource({
+	url: '/api/users',
+	Model: User
+});
+
+users.register = registerUser;
+users.login = loginUser;
+users.logout = logoutUser;
+users.loggedIn = loggedIn;

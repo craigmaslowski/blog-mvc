@@ -6,21 +6,21 @@
 var loginUserController = function (pageState) {
 	var ctrl = this;
   
-  ctrl.pageState = pageState;
+  ctrl.pageState = pageState();
   
-  ctrl.pageState().user = m.prop(new users.Model());
+  ctrl.pageState.user = m.prop(new users.Model());
   ctrl.errorCtrl = new errorComponent.controller();
   
   ctrl.login = function () {
-    users.login(ctrl.pageState().user).then(function () {
-      ctrl.pageState().authenticated(true);
+    users.login(ctrl.pageState.user).then(function () {
+      ctrl.pageState.authenticated(true);
       m.route('/'); 
     }, ctrl.errorCtrl.error);
   };
 };
 
 var loginUserView = function (ctrl) {
-  var user = ctrl.pageState().user();
+  var user = ctrl.pageState.user();
   
 	// build the form
   var form = [

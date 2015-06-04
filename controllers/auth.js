@@ -1,5 +1,19 @@
 var passport = require('passport'),
 		User = require('../models/user');
+
+exports.getAllUsers = function (req, res) {
+  User.find(function (err, users) {
+    if (err) res.status(500).send({ message: err });
+    res.json(users);
+  });
+};
+
+exports.removeUser = function (req, res) {
+  User.remove({ _id: req.params.user_id }, function (err) {
+    if (err) res.status(500).send({ message: err });
+    res.json({ message: 'User removed successfully.' });
+  });
+};
     
 exports.register = function (req, res) {
   User.register(new User({ 

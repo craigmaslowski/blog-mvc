@@ -10,25 +10,25 @@ var postFormController = function (pageState) {
   var ctrl = this,
       id = m.route.param('id');
 
-  ctrl.pageState = pageState;
+  ctrl.pageState = pageState();
   
-  if (!ctrl.pageState().authenticated()) 
+  if (!ctrl.pageState.authenticated()) 
     m.route('/restrictedAccess'); 
   
-  ctrl.pageState().showMarkdownPreview = m.prop(false);
-  ctrl.pageState().markdownPreview = m.prop('');
-  ctrl.pageState().validationErrors = m.prop({});
-  ctrl.pageState().post = m.prop({});
+  ctrl.pageState.showMarkdownPreview = m.prop(false);
+  ctrl.pageState.markdownPreview = m.prop('');
+  ctrl.pageState.validationErrors = m.prop({});
+  ctrl.pageState.post = m.prop({});
   
   ctrl.errorCtrl = new errorComponent.controller();
   
   // load the post if we're editing or create a new post if we're adding
   if (id)
     posts.load(id)
-      .then(ctrl.pageState().post, ctrl.errorCtrl.error)
-      .then(function () { ctrl.pageState().markdownPreview(marked(ctrl.pageState().post().body())); });
+      .then(ctrl.pageState.post, ctrl.errorCtrl.error)
+      .then(function () { ctrl.pageState.markdownPreview(marked(ctrl.pageState.post().body())); });
   else 
-    ctrl.pageState().post(new posts.Model());
+    ctrl.pageState.post(new posts.Model());
 
   // clear the error
   ctrl.clearError = function () {
@@ -37,11 +37,11 @@ var postFormController = function (pageState) {
   
   // save the post
   ctrl.save = function () {
-    var post = ctrl.pageState().post,
+    var post = ctrl.pageState.post,
         validationErrors = post().validate();
     
     if (validationErrors) {
-      ctrl.pageState().validationErrors(validationErrors);
+      ctrl.pageState.validationErrors(validationErrors);
       return;
     }
     
@@ -52,13 +52,13 @@ var postFormController = function (pageState) {
   ctrl.remove = removePost(ctrl);
   
   ctrl.updateMarkdownPreview = function () {
-    ctrl.pageState().markdownPreview(marked(ctrl.pageState().post().body()));
+    ctrl.pageState.markdownPreview(marked(ctrl.pageState.post().body()));
   };
 };
 
 var postFormView = function (ctrl) {
-  var post = ctrl.pageState().post(),
-      validationErrors = ctrl.pageState().validationErrors();
+  var post = ctrl.pageState.post(),
+      validationErrors = ctrl.pageState.validationErrors();
 
   var titleField = m('.title.field' + (validationErrors.title ? '.error' : ''), [
     m('label', 'Title'),
@@ -88,7 +88,7 @@ var postFormView = function (ctrl) {
   var previewToggleField = m('.preview.toggle.field', [
     m('.ui.toggle.checkbox', [
       m('input[type=checkbox]#showMarkdownPreview', { 
-        onchange: m.withAttr('checked', ctrl.pageState().showMarkdownPreview) 
+        onchange: m.withAttr('checked', ctrl.pageState.showMarkdownPreview) 
       }),
       m('label[for=showMarkdownPreview]', 'Preview')
     ])
@@ -108,10 +108,10 @@ var postFormView = function (ctrl) {
   }
 
   // build the preview
-  var preview = m('.ui.segment.preview', m.trust(ctrl.pageState().markdownPreview()));
+  var preview = m('.ui.segment.preview', m.trust(ctrl.pageState.markdownPreview()));
 
   // create a one or two column display
-  if (ctrl.pageState().showMarkdownPreview()) {
+  if (ctrl.pageState.showMarkdownPreview()) {
     formElements.push(titleField);
     formElements.push(m('.ui.body.field.grid', [       
       m('.eight.wide.column', [ bodyField ]),

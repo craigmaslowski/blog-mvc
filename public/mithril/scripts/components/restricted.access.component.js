@@ -1,8 +1,8 @@
 var restrictedAccessController = function (pageState) {
 	var ctrl = this;
 	
-	ctrl.pageState = pageState;
-	ctrl.loginUserCtrl = new loginUserComponent.controller(ctrl.pageState);
+	ctrl.pageState = pageState();
+	ctrl.loginUserCtrl = new loginUserComponent.controller(pageState);
 	ctrl.loginUserCtrl.errorCtrl.error({ message: 'You are not authorized to perform that action. Are you logged in?' });
 };
 

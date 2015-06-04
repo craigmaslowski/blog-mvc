@@ -5,22 +5,22 @@
 var registerUserController = function (pageState) {
 	var ctrl = this;
   
-  ctrl.pageState = pageState;
+  ctrl.pageState = pageState();
 
-  if (!ctrl.pageState().authenticated()) 
+  if (!ctrl.pageState.authenticated()) 
     m.route('/restrictedAccess'); 
   
-  ctrl.pageState().user = m.prop(new users.Model());
-  ctrl.pageState().validationErrors = m.prop({});
+  ctrl.pageState.user = m.prop(new users.Model());
+  ctrl.pageState.validationErrors = m.prop({});
 
   ctrl.errorCtrl = new errorComponent.controller();
   
   ctrl.register = function () {
-    var user = ctrl.pageState().user,
+    var user = ctrl.pageState.user,
         validationErrors = user().validate();
     
     if (validationErrors) {
-      ctrl.pageState().validationErrors(validationErrors);
+      ctrl.pageState.validationErrors(validationErrors);
       return;
     }
     
@@ -29,8 +29,8 @@ var registerUserController = function (pageState) {
 };
 
 var registerUserView = function (ctrl) {
-  var user = ctrl.pageState().user(),
-      validationErrors = ctrl.pageState().validationErrors();
+  var user = ctrl.pageState.user(),
+      validationErrors = ctrl.pageState.validationErrors();
   
 	// build the form
   var form = [

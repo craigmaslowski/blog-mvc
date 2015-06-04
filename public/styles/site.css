@@ -1,3 +1,7 @@
+code {
+	background: #efefef;
+}
+
 header.main { margin-bottom: 1rem; }
 
 .ui.list .list > .item .header, 
@@ -10,7 +14,7 @@ header.main { margin-bottom: 1rem; }
 .posts .post .meta,
 .posts .post .actions,
 .post.detail .body,
-.post.detail .meta,
+.post.detail .metadata,
 .post.detail .actions,
 .post.form .actions {
 	margin-top: 1rem;
@@ -40,4 +44,15 @@ header.main { margin-bottom: 1rem; }
 
 .post.detail .actions a {
 	margin-right: 1rem;
+}
+
+.post.detail .author {
+	font-size: 1em;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+}
+
+.post.detail .metadata {
+	color: rgba(0, 0, 0, 0.4);
+  font-size: .875em;
 }

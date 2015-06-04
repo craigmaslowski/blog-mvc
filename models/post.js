@@ -4,7 +4,7 @@ var PostSchema = new mongoose.Schema({
 	title: 'String',
 	body: 'String',
 	date: 'Date',
-  ownerId: 'String'
+	authorId: 'ObjectId'
 });
 
 module.exports = mongoose.model('Post', PostSchema);

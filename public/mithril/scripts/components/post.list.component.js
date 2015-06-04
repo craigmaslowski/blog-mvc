@@ -8,16 +8,19 @@
 
 var postListController = function (pageState) {
   var ctrl = this;
-  ctrl.pageState = pageState;
-  ctrl.pageState().posts = m.prop([]);
+  
+  ctrl.pageState = pageState();
+  ctrl.pageState.posts = m.prop([]);
+  
   ctrl.errorCtrl = new errorComponent.controller();
-  posts.load().then(ctrl.pageState().posts, function () { 
+  
+  posts.load().then(ctrl.pageState.posts, function () { 
     ctrl.errorCtrl.error('An error occurred loading posts.'); 
   });
 };
 
 var postListView = function (ctrl) {
-  var posts = ctrl.pageState().posts();
+  var posts = ctrl.pageState.posts();
   
   return m('.posts.ui.column.list', [
     errorComponent.view(ctrl.errorCtrl), 
@@ -28,7 +31,7 @@ var postListView = function (ctrl) {
           m('.meta', 'Posted on ' + formatDate(post.date()))
       ];
       
-      if (ctrl.pageState().authenticated()) {
+      if (ctrl.pageState.authenticated()) {
         postElements.push(m('.actions', [
           m('a[href=/edit/' + post._id() + ']', {config: m.route}, 'Edit Post')
         ]));
