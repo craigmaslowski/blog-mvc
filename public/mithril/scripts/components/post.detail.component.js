@@ -36,7 +36,7 @@ var postDetailView = function (ctrl) {
 		m('.body', m.trust(marked(post.body()))),
 		m('.metadata', [
 			m('span', 'Posted by '),
-			m('span.author', post.author().firstName + post.author().lastName),
+			m('span.author', post.author().firstName + ' ' + post.author().lastName),
 			m('span', ' on '),
 			m('span.date', moment(post.date()).format('MMMM Do YYYY, h:mm a'))
 		])		
