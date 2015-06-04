@@ -12,13 +12,18 @@ exports.getAll = function (req, res) {
 exports.getOne = function (req, res) {
   Post.findById(req.params.post_id, function (err, post) {
     if (err) res.status(500).send({ message: err });
-    
-    User.find({ _id: post.authorId }, function (err, user) {
+
+    User.findById(post.authorId, function (err, user) {
+      if (err) res.status(500).send({ message: err });
+      
       post = post.toObject();
-      post.author = user.firstName + ' ' + user.lastName;
+      var fullName = user.firstName + ' ' + user.lastName; 
+      post.author = fullName;
       
       if (req.query.include === 'comments') {
         Comment.find({postId: req.params.post_id}).sort('date').exec(function (err, comments) {
+          if (err) res.status(500).send({ message: err });
+          
           post.comments = comments || [];
           res.json(post);
         });

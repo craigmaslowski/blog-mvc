@@ -1,4 +1,12 @@
+/* global moment */
 /* global marked */
+/* global posts */
+/* global m */
+/* global removePost */
+/* global commentFormComponent */
+/* global commentListComponent */
+/* global errorComponent */
+
 var postDetailController = function (pageState) {
 	var ctrl = this,
       id = m.route.param('id');
@@ -26,7 +34,12 @@ var postDetailView = function (ctrl) {
 	var postElements = [
 		m('h1.title', post.title()),
 		m('.body', m.trust(marked(post.body()))),
-		m('.metadata', 'Posted on ' + moment(post.date()).format('MMMM Do YYYY, h:mm a'))
+		m('.metadata', [
+			m('span', 'Posted by '),
+			m('span.author', post.author()),
+			m('span', ' on '),
+			m('span.date', moment(post.date()).format('MMMM Do YYYY, h:mm a'))
+		])		
 	];
 	
 	if (ctrl.pageState.authenticated()) {

@@ -33,7 +33,7 @@ var commentFormView = function (ctrl) {
       validationErrors = ctrl.pageState.validationErrors();
 
   return m('.column', [ 
-    m('form.ui.post.form', [ 
+    m('form.ui.comment.form', [ 
       errorComponent.view(ctrl.errorCtrl),
       m('.fields', [
         m('.author.eight.wide.field' + (validationErrors.author ? '.error' : ''), [
@@ -62,7 +62,9 @@ var commentFormView = function (ctrl) {
           })
         ])
       ]),
-      m('button[type=button].ui.primary.button', { onclick: ctrl.save, href: '#' }, 'Save')
+      m('.actions', [
+        m('button[type=button].ui.primary.button', { onclick: ctrl.save, href: '#' }, 'Save')
+      ])
     ])
   ]);
 };

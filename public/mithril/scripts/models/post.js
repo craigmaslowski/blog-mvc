@@ -6,7 +6,8 @@ var Post = new Model(
     title: '',
     body: '',
     date: new Date(),
-    comments: []
+    comments: [],
+    author: ''
   }, 
   { 
     title: { presence: {message: 'is required'} }, 

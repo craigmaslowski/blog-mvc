@@ -16,7 +16,8 @@ header.main { margin-bottom: 1rem; }
 .post.detail .body,
 .post.detail .metadata,
 .post.detail .actions,
-.post.form .actions {
+.post.form .actions,
+.comment.form .actions {
 	margin-top: 1rem;
 }
 
@@ -46,13 +47,6 @@ header.main { margin-bottom: 1rem; }
 	margin-right: 1rem;
 }
 
-.post.detail .author {
-	font-size: 1em;
-  color: rgba(0, 0, 0, 0.8);
-  font-weight: 700;
-}
-
 .post.detail .metadata {
 	color: rgba(0, 0, 0, 0.4);
-  font-size: .875em;
 }
