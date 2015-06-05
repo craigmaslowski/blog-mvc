@@ -1,5 +1,10 @@
 /* global validate */
 
+function getPropertyOrDefault (prop, data, defaultValue) {
+  defaultValue = defaultValue || '';
+  return data && data[prop] ? data[prop] : defaultValue;
+}
+
 var Model = function (schema, constraints) {
 	return function (data) {
 		var self = this;

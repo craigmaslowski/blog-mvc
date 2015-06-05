@@ -1,4 +1,3 @@
-/* global Observable */
 /* global m */
 /* global errorComponent */
 /* global users */

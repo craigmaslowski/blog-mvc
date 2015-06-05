@@ -4,7 +4,7 @@ var PageState = function (data) {
 };
 
 var Page = function (navigation, content) {
-	this.controller = Observable.register([], function (pageState) {
+	this.controller = function (pageState) {
 		var ctrl = this;
 		
 		ctrl.pageState = m.prop(pageState || new PageState());
@@ -21,7 +21,7 @@ var Page = function (navigation, content) {
 			ctrl.contentCtrl = new content.controller(ctrl.pageState);
 		}
 			
-	});
+	};
 	
 	this.view = function (ctrl) {
 		return [
