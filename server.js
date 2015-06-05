@@ -38,6 +38,22 @@ app.use(spaRoute); // middleware to serve our SPA's index page
 app.use('/api', apiRoutes); // routes to all api actions
 app.use(express.static(path.join(__dirname, 'public'))); // static file serving for css, js, etc.
 
+User.find({}, function (err, users) {
+  if (users.length === 0) {
+    console.log('No users found');
+    User.register(new User({ 
+      username: 'craig', 
+      firstName: 'Craig', 
+      lastName: 'Maslowski' 
+    }), 
+    'secret', 
+    function (err) {
+      if (err) throw new Error(err);
+      console.log('Default user created');
+    });
+  }
+});
+
 // start server
 app.listen(port);
 console.log('Listening on port ' + port);

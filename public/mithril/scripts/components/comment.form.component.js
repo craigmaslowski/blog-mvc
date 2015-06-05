@@ -18,6 +18,7 @@ var commentFormController = function (pageState) {
       return;
     }
     
+    comment().date(new Date());
 		comment().postId(post._id());		
     Comments.save(comment).then(function (data) { 
       var comments = ctrl.pageState.post().comments();
